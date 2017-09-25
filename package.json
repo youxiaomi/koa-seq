@@ -9,12 +9,22 @@
     "koa-session": "^5.5.0",
     "koa-static": "^4.0.1",
     "mysql2": "^1.4.2",
-    "sequelize": "^4.8.4"
+    "sequelize": "^4.8.4",
+    "underscore": "^1.8.3",
+    "vue": "^2.4.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "css-loader": "^0.28.7",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
+    "vue-loader": "^13.0.5",
+    "vue-template-compiler": "^2.4.4",
+    "webpack": "^3.6.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sup": "supervisor -i node_modules app.js"
+    "sup": "supervisor -i node_modules app.js",
+    "webpack": "webpack --config config/webpack.config.js"
   },
   "author": "",
   "license": "ISC"

@@ -34,5 +34,33 @@ sequelize
 //
 //
 //
-// require('../models/User');
-// require('./models/Price');
+require('./../models/User');
+require('./../models/Price');
+
+function association () {
+  // global.associations={
+    // price: Price.belongsTo(User),
+    // User.hasOne(Price)
+  // }
+  // Price.belongsTo(User)
+}
+Price.belongsTo(User);
+User.hasOne(Price);
+
+function sync() {
+  User.sync({force: false});
+  Price.sync({force: false});
+}
+association()
+sync();
+
+User.create(
+  {firstName:'123',
+  Price: {
+    num: "22222'"
+  }
+},{
+  include: [ {model: Price} ]
+}).then(function (user) {
+  // user.setPrices([{num:222}])
+})
