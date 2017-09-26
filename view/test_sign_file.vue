@@ -1,7 +1,7 @@
 <template>
     <div class="example_warp">
         <div class="example">
-            asdfsdf
+            {{ msg }}
         </div>
     </div>
 
@@ -12,7 +12,7 @@
     name: 'app',
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App'
+        msg: 'Welcome to Your Vue.js Appssss'
       }
     }
   }

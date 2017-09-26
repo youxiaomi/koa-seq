@@ -8395,7 +8395,7 @@ module.exports = function normalizeComponent (
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js Appssss'
     }
   }
 });
@@ -8410,18 +8410,13 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "example_warp" }, [
-      _c("div", { staticClass: "example" }, [_vm._v("\n        asdfsdf\n    ")])
+  return _c("div", { staticClass: "example_warp" }, [
+    _c("div", { staticClass: "example" }, [
+      _vm._v("\n        " + _vm._s(_vm.msg) + "\n    ")
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 var esExports = { render: render, staticRenderFns: staticRenderFns }
 /* harmony default export */ __webpack_exports__["a"] = (esExports);
