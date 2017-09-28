@@ -3,10 +3,10 @@ class userController extends applicationController{
     super({
       bef_actions:['logo_in']
     });
-
-
   }
   index(ctx, next) {
+    ctx.session.test_session = 'ssssssa安卓'
+    console.log(ctx.request.body)
     ctx.body = 'user  Hello Wsosssssrld';
   }
   show(ctx,next){

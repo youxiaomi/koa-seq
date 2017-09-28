@@ -1,9 +1,9 @@
 <template>
-    <div class="example_warp">
-        <div class="example">
-            {{ msg }}
-        </div>
+<div class="example_warp">
+    <div class="example">
+        {{ msg }}
     </div>
+</div>
 
 </template>
 
@@ -19,10 +19,9 @@
 </script>
 
 <style lang="scss" scoped>
-    .example_warp{
+    .example_warp {
         .example {
             color: red;
         }
     }
-
 </style>

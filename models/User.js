@@ -20,3 +20,5 @@ global.User = sequelize.define('user',{
   }
 });
 
+User.sync({force: false});
+

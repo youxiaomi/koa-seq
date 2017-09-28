@@ -3,7 +3,8 @@
 const routers = {
 
   '/':['get','application','index'],
-  '/user':['get','user','index'],
+  // '/':['get','user','index'],
+  '/user':['post','user','index'],
   '/user/:id':['get','user','show'],
 
 }

@@ -3,11 +3,12 @@ const Router = require('koa-router');
 const serve = require('koa-static');
 const session = require('koa-session');
 const KeyGrip = require("keygrip")
-
-
+var bodyParser = require('koa-bodyparser');
 
 const app = new Koa();
 const router = new Router();
+
+app.use(bodyParser());
 
 
 app.keys = new KeyGrip(['im a newer secret', 'i like turtle'], 'sha256');

@@ -37,30 +37,26 @@ sequelize
 require('./../models/User');
 require('./../models/Price');
 
-function association () {
-  // global.associations={
-    // price: Price.belongsTo(User),
-    // User.hasOne(Price)
-  // }
-  // Price.belongsTo(User)
-}
-Price.belongsTo(User);
-User.hasOne(Price);
 
-function sync() {
-  User.sync({force: false});
-  Price.sync({force: false});
-}
-association()
-sync();
 
-User.create(
-  {firstName:'123',
-  Price: {
-    num: "22222'"
-  }
-},{
-  include: [ {model: Price} ]
-}).then(function (user) {
-  // user.setPrices([{num:222}])
-})
+
+async function get_info() {
+  var users = await User.findAll({where:{
+    firstName:'squid'
+  }});
+
+
+
+  var prices = users.map((user) => Price.findAll({ where:{userid: user.id} }))
+
+  var all_price = await Promise.all(prices)
+
+  
+
+
+  console.log(JSON.stringify(all_price))
+
+}
+
+// get_info()
+
