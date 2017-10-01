@@ -1,15 +1,13 @@
 <template>
-<div class="example_warp">
-    <div class="example">
-        {{ msg }}
+    <div class="example_warp">
+        <div class="example">
+            {{ msg }}
+        </div>
     </div>
-</div>
-
 </template>
 
 <script>
   export default {
-    name: 'app',
     data () {
       return {
         msg: 'Welcome to Your Vue.js Appssss'

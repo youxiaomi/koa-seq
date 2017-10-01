@@ -6,7 +6,7 @@ const routers = {
   // '/':['get','application','index'],
   '/':['get','user','index'],
   '/user':['post','user','index'],
-  '/user/:id':['get','user','show'],
+  '/user':['get','user','show'],
 }
 
 

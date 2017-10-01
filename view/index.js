@@ -1,7 +1,15 @@
-import Vue from 'vue'
-import App from './test_sign_file.vue'
+import Vue from 'vue';
+import routes from './vue_conf/vue_router'
+import VueRouter from 'vue-router';
+Vue.use(VueRouter);
+import store from "./vue_conf/store";
 
-new Vue({
-  el: '#app',
-  render: h => h(App)
+const router = new VueRouter({
+  routes,
 })
+
+const app = new Vue({
+  router,
+  store
+}).$mount('#app')
+
