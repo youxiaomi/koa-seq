@@ -10,6 +10,7 @@ const sequelize = new Sequelize('koa_sq', 'root', '123123', {
     min: 0,
     idle: 10000
   },
+  timezone: '+08:00'
 
 });
 global.sequelize = sequelize;
@@ -36,6 +37,7 @@ sequelize
 //
 require('./../models/User');
 require('./../models/Price');
+require('./../models/Production');
 
 
 

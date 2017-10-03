@@ -12,13 +12,20 @@
 // }
 
 global.User = sequelize.define('user',{
-  firstName: {
+  name: {
     type: Sequelize.STRING
   },
-  lastName: {
+  password: {
     type: Sequelize.STRING
-  }
-});
+  },
+  account:{
+    type: Sequelize.STRING
+  },
+  ip:{
+    type: Sequelize.STRING
+  },
 
+});
 User.sync({force: false});
+
 

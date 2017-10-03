@@ -2,20 +2,14 @@ class applicationController {
   constructor(options) {
     options = options || {}
 
-    this.bef_ban_lists = ['constructor','init_bef_action'];
 
+
+
+
+    // this.bef_ban_lists = ['constructor','init_bef_action'];
     // this.before_actions = ['app_bef'];
-    this.init_bef_action(options);
+    // this.init_bef_action(options);
   }
-  index(ctx, next) {
-    ctx.body = 'Hello Wssssssssssorld';
-
-    // ctx.session.test_session2 = 'ssssssa安卓2'
-  }
-  app_bef(){
-    console.log('app_bef')
-  }
-
 
   init_bef_action(options){
     // 处理拦截controller
@@ -28,13 +22,14 @@ class applicationController {
       var is_exist = self.bef_ban_lists.find(function (ban_fn) {
         if(ban_fn == fn)return true
       })
-      if(is_exist)return
+      if(is_exist)return;
+
       self[fn] = new Proxy(self[fn],{
         apply: function(target, thisArg, argumentsList) {
           self.before_actions.map(function (before_action) {
-            self[before_action]()
-          })
-          target.apply(this, argumentsList)
+            self[before_action].apply(this, argumentsList)
+          });
+          target.apply(this, argumentsList);
         }
       })
     })
