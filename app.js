@@ -46,21 +46,6 @@ require('./config/routers.js')(router);
 require('./bin/handle_model.js');
 
 
-var cc = async function (ctx) {
-
-}
-
-class Text{
-  async cc(ctx){
-    var user =  await User.findOne({where:{'account':"goudan"}})
-    ctx.body = {"login_status" : "密码错误"};
-  }
-
-}
-var text = new Text()
-
-router.get('/aa',text.cc );
-
 
 app.use(serve('./public'));
 
