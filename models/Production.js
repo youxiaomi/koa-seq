@@ -17,6 +17,9 @@ global.Production = sequelize.define("production", {
       notEmpty: true
     }
   },
+  activeUser:{
+    type: Sequelize.STRING
+  }
 });
 
 Production.sync({force: false});

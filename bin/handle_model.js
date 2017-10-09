@@ -2,7 +2,7 @@ var fs = require('fs')
 
 var Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('koa_sq', 'root', 'goudan123123', {
+const sequelize = new Sequelize('koa_sq', 'root', '123123', {
   host: 'localhost',
   dialect: 'mysql',
   pool: {

@@ -13,8 +13,10 @@ global.productionController=(function () {
   }
   return {
     async index(ctx, next){
-      var p = await Production.create(JSON.parse(ctx.request.body.productInfo));
-      ctx.body = !p.barcode ? {productStatus:false} : {productStatus:true}
+      var info = JSON.parse(ctx.request.body.productInfo);
+      info.activeUser = ctx.session.user_id;
+      var p = await Production.create(info);
+      ctx.body = !p.barcode ? {productStatus:false} : {productStatus:true};
     },
 
   }
