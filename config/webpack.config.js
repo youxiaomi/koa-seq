@@ -65,7 +65,7 @@ var webpack = require('webpack');
 var path = require('path')
 var webpack = require('webpack');
 
-
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -74,10 +74,10 @@ module.exports = {
   },//值可以是字符串、数组或对象
 
   output: {
-    path: path.resolve(__dirname, './dist'),//Webpack结果存储
-    publicPath: '/dist/',
-    filename: '[name].js',
-    chunkFilename:'[name].js'
+    path: path.resolve(__dirname, '../public/static'),
+    publicPath: '/static/',
+    filename: 'js/[name].js',
+    chunkFilename:'js/[name].js'
   },
   module: {
     rules: [
@@ -94,5 +94,17 @@ module.exports = {
     ]
 
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: './src/index.html',
+      inject: true
+    })
+
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: "manifest",
+    //   minChunks: Infinity
+    // }),
+  ],
 }
 

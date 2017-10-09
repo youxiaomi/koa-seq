@@ -1,6 +1,8 @@
 <!--App.vue是项目入口文件。-->
 <template>
     <div id="app">
+        <router-link to="/">Go to Foo</router-link>
+        <router-link to="/bar">Go to Bar</router-link>
         <router-view></router-view>
     </div>
 </template>

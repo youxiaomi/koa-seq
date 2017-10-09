@@ -12,7 +12,6 @@
 
 <script>
   export default {
-    name:"test_rotter",
     data () {
       return {
         msg: 'router'
@@ -26,10 +25,10 @@
   }
 </script>
 
-<!--<style lang="scss" scoped>-->
-    <!--.example_warp {-->
-        <!--.example {-->
-            <!--color: blue;-->
-        <!--}-->
-    <!--}-->
-<!--</style>-->
+<style lang="scss" scoped>
+    .example_warp {
+        .example {
+            color: blue;
+        }
+    }
+</style>
