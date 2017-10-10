@@ -50,9 +50,6 @@
 //
 // };
 
-var path = require('path')
-var webpack = require('webpack');
-
 // var plugins = [
 //   new webpack.optimize.CommonsChunkPlugin({
 //     name: "vendor",//和上面配置的入口对应
@@ -66,13 +63,13 @@ var path = require('path')
 var webpack = require('webpack');
 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
   entry: {
     app: ['./src/main.js'],
     // vendor: ['vue','vuex']
-  },//值可以是字符串、数组或对象
-
+  },
+  devtool: 'inline-source-map',
   output: {
     path: path.resolve(__dirname, '../public/static'),
     publicPath: '/static/',
@@ -89,8 +86,12 @@ module.exports = {
           // other vue-loader options go here
         }
       },
-
-
+      // {
+      //   test: /\.js$/,
+      //   exclude: /node_modules/,
+      //   loader: 'babel-loader'
+      //   // include: [path.resolve(__dirname, '/src')]
+      // },
     ]
 
   },
@@ -99,12 +100,27 @@ module.exports = {
       filename: 'index.html',
       template: './src/index.html',
       inject: true
-    })
+    }),
+    // new UglifyJSPlugin({
+    //   sourceMap: false
+    // })
 
+    // new webpack.optimize.UglifyJsPlugin({
+    //   mangle: {
+    //     except: ['$super', '$', 'exports', 'require', 'module', '_']
+    //   },
+    //   compress: {
+    //     warnings: false
+    //   },
+    //   output: {
+    //     comments: false,
+    //   }
+    // })
     // new webpack.optimize.CommonsChunkPlugin({
     //   name: "manifest",
     //   minChunks: Infinity
     // }),
   ],
 }
+
 

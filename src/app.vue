@@ -18,6 +18,10 @@
       }
     },
     components:{
+
+    },
+    updated(){
+
     }
   }
 

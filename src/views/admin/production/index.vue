@@ -16,6 +16,11 @@
       store:function () {
         return this.$store
       }
+    },
+    created(){
+      $.get('/admin/production',function (production) {
+        console.log(production[0])
+      })
     }
   }
 </script>

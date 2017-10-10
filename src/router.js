@@ -14,6 +14,14 @@ export default new Router({
       path: '/bar',
       component: () => import('./views/test.vue')
     },
+    {
+      path: '/admin/login',
+      component: () => import('./views/admin/login.vue')
+    },
+    {
+      path: '/admin/production',
+      component: () => import('./views/admin/production/index.vue')
+    },
   ]
 })
 
