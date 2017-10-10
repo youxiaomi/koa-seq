@@ -2,7 +2,7 @@ var fs = require('fs')
 
 var Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('koa_sq', 'root', 'goudan123123', {
+const sequelize = new Sequelize('koa_sq', 'root', '123123', {
   host: 'localhost',
   dialect: 'mysql',
   pool: {
@@ -26,18 +26,11 @@ sequelize
 
 
 
+var models = fs.readdirSync('./models');
 
-// function init_model(model_name, options) {
-//
-// }
-// global.init_model = init_model;
-
-//
-//
-//
-require('./../models/User');
-require('./../models/Price');
-require('./../models/Production');
+models.map(function (m) {
+  require('./../models/'+m);
+})
 
 
 

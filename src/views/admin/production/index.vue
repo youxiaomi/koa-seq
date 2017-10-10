@@ -1,8 +1,6 @@
 <template>
 <div class="example_warp">
-    <div class="example">
-        {{ store.state.store_text}}
-    </div>
+    123{{ store.state.store_text}}
 </div>
 
 </template>
@@ -18,14 +16,17 @@
       store:function () {
         return this.$store
       }
+    },
+    created(){
+      $.get('/admin/production',function (production) {
+        console.log(production[0])
+      })
     }
   }
 </script>
 
 <style lang="scss" scoped>
     .example_warp {
-        .example {
-            color: blue;
-        }
+
     }
 </style>

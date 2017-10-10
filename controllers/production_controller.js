@@ -12,10 +12,28 @@ global.productionController=(function () {
     }
   }
   return {
-    async index(ctx, next){
-      var p = await Production.create(JSON.parse(ctx.request.body.productInfo));
-      ctx.body = !p.barcode ? {productStatus:false} : {productStatus:true}
+    async create(ctx, next){
+      var info = JSON.parse(ctx.request.body.productInfo);
+      info.activeUser = ctx.session.user_id;
+      var p = await Production.findOne({where:{barcode: info.barcode }});
+      if(p){
+        p = await Production.update({addStockNum: info.addStockNum+p.addStockNum },{where:{barcode: info.barcode }})
+      }else{
+        p = await Production.create(info);
+      }
+      ctx.body = p.barcode || p.length>0 ? {productStatus:true} : {productStatus:false};
     },
+    async index(ctx, next){
+      var p = await Production.findAll();
+      ctx.body=p;
+    },
+    async show(ctx, next){
+      var p = await Production.findOne({where:{barcode: ctx.request.query.barcode}})
+      ctx.body=p
+      // console.log(p)
+    }
+
+
 
   }
 })()

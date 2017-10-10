@@ -1,25 +1,16 @@
 var Koa = require('koa');
-const Router = require('koa-router');
 const serve = require('koa-static');
 const session = require('koa-session');
 var bodyParser = require('koa-bodyparser');
 var KeyGrip = require("keygrip");
-// const logger = require('koa-logger')
-const log4js = require('log4js');
 
 
 
 const app = new Koa();
-const router = new Router();
 
-log4js.configure({
-  appenders: {
-    cheese: { type: 'file', filename: 'cheese.log' },
-    console: { type: 'console' },
-  },
-  categories: { default: { appenders: ['cheese','console'], level: 'ALL' } },
-  replaceConsole: true
-});
+
+
+
 
 app.keys = ['mima'];
 const CONFIG = {
@@ -34,24 +25,21 @@ const CONFIG = {
 app.use(session(CONFIG, app));
 app.use(bodyParser());
 
-const logger = log4js.getLogger('cheese');
 
 
 
 
 
 
-
-require('./config/routers.js')(router);
+require('./config/routers.js')(app);
 require('./bin/handle_model.js');
 
 
 
 app.use(serve('./public'));
+app.use(serve('./public/static'));
 
-app
-  .use(router.routes())
-  .use(router.allowedMethods());
+
 
 
 

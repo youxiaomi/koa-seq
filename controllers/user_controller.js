@@ -7,6 +7,7 @@ global.userController=(function () {
       console.log('未登录')
       return false
     }else{
+      ctx.body.status='true'
       console.log("已经登录")
       return true;
     }
@@ -15,7 +16,7 @@ global.userController=(function () {
     async login(ctx, next){
       is_login(ctx)
       var query = ctx.request.query
-      if(!query)return
+      if(query == {})return
       var user =  await User.findOne({where:{'account':query.account}})
       if(!user){
         ctx.body.loginStatus = "没有此用户名";
@@ -28,6 +29,9 @@ global.userController=(function () {
         }
       }
     },
+    async admin(ctx, next){
+
+    }
 
   }
 })()
