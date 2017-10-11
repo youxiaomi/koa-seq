@@ -1,6 +1,6 @@
 <!--App.vue是项目入口文件。-->
 <template>
-    <div id="app">
+    <div id="app" >
         <router-link to="/">Go to Foo</router-link>
         <router-link to="/bar">Go to Bar</router-link>
         <router-view></router-view>
@@ -8,6 +8,7 @@
 </template>
 
 <script>
+//  import '../public/assets/css/minimal.css';
   import store from './vuex/store';
   export default {
     name: 'app',

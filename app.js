@@ -1,9 +1,10 @@
 var Koa = require('koa');
-const serve = require('koa-static');
 const session = require('koa-session');
 var bodyParser = require('koa-bodyparser');
 var KeyGrip = require("keygrip");
 
+var path = require('path');
+var staticCache = require('koa-static-cache')
 
 
 const app = new Koa();
@@ -30,17 +31,18 @@ app.use(bodyParser());
 
 
 
-
 require('./config/routers.js')(app);
 require('./bin/handle_model.js');
 
 
+app.use(staticCache(path.join(__dirname, 'public'), {
+  maxAge: 365 * 24 * 60 * 60
+}))
 
-app.use(serve('./public'));
-app.use(serve('./public/static'));
 
-
-
+app.use(staticCache(path.join(__dirname, 'public/static'), {
+  maxAge: 365 * 24 * 60 * 60
+}))
 
 
 

@@ -17,10 +17,12 @@ global.productionController=(function () {
       info.activeUser = ctx.session.user_id;
       var p = await Production.findOne({where:{barcode: info.barcode }});
       if(p){
-        p = await Production.update({addStockNum: info.addStockNum+p.addStockNum },{where:{barcode: info.barcode }})
+        p = await Production.update({addStockNum: info.addStockNum + p.addStockNum },{where:{barcode: info.barcode }});
       }else{
         p = await Production.create(info);
       }
+      ImportRecord.create(info);
+
       ctx.body = p.barcode || p.length>0 ? {productStatus:true} : {productStatus:false};
     },
     async index(ctx, next){

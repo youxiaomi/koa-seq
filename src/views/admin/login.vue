@@ -1,4 +1,4 @@
-<!--<template>-->
+<template>
 <div id="wrap">
     <!-- Make page fluid -->
     <div class="row">
@@ -36,7 +36,7 @@
         </div>
     </div>
 </div>
-<!--</template>-->
+</template>
 
 <script>
   export default {

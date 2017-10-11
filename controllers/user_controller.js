@@ -30,7 +30,8 @@ global.userController=(function () {
       }
     },
     async admin(ctx, next){
-
+      var user =  await User.findAll()
+      ctx.body=user
     }
 
   }

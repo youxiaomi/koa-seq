@@ -22,19 +22,22 @@ module.exports=function (app) {
     { prefix: '/admin'}
   );
 
+  admin_router.use(async (ctx,next) =>{
+    console.log("判断是否登录" +
+      "")
+    await next()
+  });
+
   router
     .get('/login', userController.login )
     .post('/new_production', productionController.create )
     .get('/production', productionController.show )
 
-  // admin_router.use(function (ctx,next) {
-  //   // console.log("admin")
-  //   next()
-  // });
 
   admin_router
     .get('/login',userController.admin)
     .get('/production',productionController.index)
+
 
 
 
