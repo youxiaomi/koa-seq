@@ -17,7 +17,9 @@ global.productionController=(function () {
       info.activeUser = ctx.session.user_id;
       var p = await Production.findOne({where:{barcode: info.barcode }});
       if(p){
-        p = await Production.update({addStockNum: info.addStockNum + p.addStockNum },{where:{barcode: info.barcode }});
+        var copy_info =info
+        copy_info.addStockNum = info.addStockNum + p.addStockNum
+        p = await Production.update(copy_info,{where:{barcode: info.barcode }});
       }else{
         p = await Production.create(info);
       }
@@ -30,6 +32,7 @@ global.productionController=(function () {
       ctx.body=p;
     },
     async show(ctx, next){
+
       var p = await Production.findOne({where:{barcode: ctx.request.query.barcode}})
       ctx.body=p
       // console.log(p)

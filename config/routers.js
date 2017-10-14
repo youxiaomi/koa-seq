@@ -23,8 +23,7 @@ module.exports=function (app) {
   );
 
   admin_router.use(async (ctx,next) =>{
-    console.log("判断是否登录" +
-      "")
+    console.log("判断是否登录" + "")
     await next()
   });
 
@@ -32,6 +31,8 @@ module.exports=function (app) {
     .get('/login', userController.login )
     .post('/new_production', productionController.create )
     .get('/production', productionController.show )
+    .get('/production/index', productionController.index )
+    .get('/sell', sellController.create )
 
 
   admin_router

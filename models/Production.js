@@ -2,8 +2,8 @@
 
 global.Production = sequelize.define("production", {
   productName: {type: Sequelize.STRING},
-  salePrice:{type: Sequelize.INTEGER},
-  costPrice:{type: Sequelize.INTEGER},
+  salePrice:{type: Sequelize.FLOAT},
+  costPrice:{type: Sequelize.FLOAT},
   weight:{type: Sequelize.STRING},
   taste :{type: Sequelize.STRING},
   addStockNum:{type: Sequelize.INTEGER,defaultValue:0},
