@@ -1,6 +1,11 @@
 <template>
 <div class="example_warp">
-    123{{ store.state.store_text}}
+    123
+   <form action="/admin/production/create_img" method="post" enctype="multipart/form-data">
+
+       <input type="file"/>
+       <button type="submit">提交233</button>
+   </form>
 </div>
 
 </template>

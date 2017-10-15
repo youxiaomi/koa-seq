@@ -8,7 +8,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: () => import('./views/home.vue')
+      component: () => import('./views/admin/index.vue')
     },
     {
       path: '/bar',

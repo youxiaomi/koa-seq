@@ -16,7 +16,7 @@ controllers.map(function (c) {
 
 
 
-module.exports=function (app) {
+module.exports=function (app ,upload) {
   var router = new Router();
   const admin_router = new Router(
     { prefix: '/admin'}
@@ -38,8 +38,10 @@ module.exports=function (app) {
   admin_router
     .get('/login',userController.admin)
     .get('/production',productionController.index)
+    .post('/production/create_img', productionController.create_img );
 
 
+  // }));
 
 
 

@@ -10,12 +10,17 @@ module.exports = {
     app: ['./src/main.js'],
     vendor: ['vue','vuex']
   },
-  // devtool: 'inline-source-map',
+  devtool: 'inline-source-map',
   output: {
     path: path.resolve(__dirname, '../public/static'),
     publicPath: '/static/',
-    filename: 'js/[name].[chunkhash].js',
-    chunkFilename:'js/[name].[chunkhash].js'
+    filename: 'js/[name].js',
+    chunkFilename:'js/[name].js'
+  },
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.common.js',
+    }
   },
   module: {
     rules: [
@@ -66,11 +71,11 @@ module.exports = {
 
   },
   plugins: [
-    new CleanWebpackPlugin(['public/static'], {
-      root: path.resolve(__dirname, '../'),       　　　　　　　　　　//根目录
-      verbose:  true,        　　　　　　　　　　//开启在控制台输出信息
-      dry:      false        　　　　　　　　　　//启用删除文件
-    }),
+    // new CleanWebpackPlugin(['public/static'], {
+    //   root: path.resolve(__dirname, '../'),       　　　　　　　　　
+    //   verbose:  true,        　　　　　　　　　　
+    //   dry:      false        　　　　　　　　　　
+    // }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: './src/index.html',
@@ -80,18 +85,19 @@ module.exports = {
     //   sourceMap: false
     // }),
     new ExtractTextPlugin('styles.css'),
-
-    new webpack.optimize.UglifyJsPlugin({
-      mangle: {
-        except: ['$super', '$', 'exports', 'require', 'module', '_']
-      },
-      compress: {
-        warnings: false
-      },
-      output: {
-        comments: false,
-      }
-    }),
+    //
+    // new webpack.optimize.UglifyJsPlugin({
+    //   mangle: {
+    //     except: ['$super', '$', 'exports', 'require', 'module', '_']
+    //   },
+    //   compress: {
+    //
+    //     warnings: false
+    //   },
+    //   output: {
+    //     comments: false,
+    //   }
+    // }),
     new webpack.optimize.CommonsChunkPlugin({
       name: "vendor",
       minChunks: Infinity,

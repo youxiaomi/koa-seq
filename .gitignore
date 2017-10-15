@@ -1,5 +1,5 @@
 /.idea
 /node_modules
-/public
+/public/upload
 /package-lock.json
 /npm-debug.log

@@ -1,54 +1,56 @@
 <template>
-<div id="wrap">
-    <!-- Make page fluid -->
-    <div class="row">
-        <!-- Page content -->
-        <div id="content" class="col-md-12 full-page login">
-            <div class="inside-block">
-                <img src="assets/images/logo-big.png" alt class="logo">
-                <h1><strong>Welcome</strong> Stranger</h1>
-                <h5>Minimal Admin Theme</h5>
-                <form id="form-signin" class="form-signin">
-                    <section>
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="username" placeholder="Username">
-                            <div class="input-group-addon"><i class="fa fa-user"></i></div>
+    <div id="wrap">
+        <div id="loginbox">
+            <form id="loginform" class="form-vertical">
+                <div class="control-group normal_text"><h3><img src="img/logo.png" alt="Logo"/></h3></div>
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
+                            <span class="add-on bg_lg"><i class="icon-user"></i></span>
+                            <input type="text" placeholder="Username" v-model="account"/>
                         </div>
-                        <div class="input-group">
-                            <input type="password" class="form-control" name="password" placeholder="Password">
-                            <div class="input-group-addon"><i class="fa fa-key"></i></div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="main_input_box">
+                            <span class="add-on bg_ly"><i class="icon-lock"></i></span>
+                            <input type="password" placeholder="Password" v-model="password"/>
                         </div>
-                    </section>
-                    <section class="controls">
-                        <div class="checkbox check-transparent">
-                            <input type="checkbox" value="1" id="remember" checked>
-                            <label for="remember">Remember me</label>
-                        </div>
-                        <a href="#">Forget password?</a>
-                    </section>
-                    <section class="log-in">
-                        <button class="btn btn-greensea">Log In</button>
-                        <span>or</span>
-                        <button class="btn btn-slategray">Create an account</button>
-                    </section>
-                </form>
-            </div>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <!--<span class="pull-left"><a href="#" class="flip-link btn btn-info" id="to-recover">Lost password?</a></span>-->
+                    <span class="pull-right">
+                        <div v-on:click="submit" class="btn btn-success"> Login</div>
+                    </span>
+                </div>
+            </form>
         </div>
     </div>
-</div>
+
 </template>
 
 <script>
   export default {
     data () {
       return {
-        msg: 'router'
+        account: '',
+        password:'',
       }
     },
     computed: {
       store: function () {
         return this.$store
       }
+    },
+    methods:{
+      submit:function(){
+        $.get('/login?account='+this.account+'&password='+this.password,function (data ){
+          console.log(data)
+        })
+        }
+
     }
   }
 </script>

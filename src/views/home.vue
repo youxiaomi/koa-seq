@@ -1,7 +1,7 @@
 <template>
   <div class='home'>
 
-    我就是home
+    我就是homefff33
   </div>
 </template>
 <script>
