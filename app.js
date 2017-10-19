@@ -6,10 +6,10 @@ var KeyGrip = require("keygrip");
 var path = require('path');
 var staticCache = require('koa-static-cache')
 
-
 const app = new Koa();
 
-
+global.ROOT_DIR = __dirname;
+global.ROOT_DIR_PUBLIC = __dirname+'/public';
 
 
 
@@ -25,10 +25,6 @@ const CONFIG = {
 
 app.use(session(CONFIG, app));
 app.use(body({ multipart: true }));
-
-
-
-
 
 
 require('./config/routers.js')(app);

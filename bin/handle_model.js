@@ -11,7 +11,6 @@ const sequelize = new Sequelize('koa_sq', 'root', '123123', {
     idle: 10000
   },
   timezone: '+08:00'
-
 });
 global.sequelize = sequelize;
 global.Sequelize = Sequelize;

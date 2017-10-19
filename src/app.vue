@@ -11,19 +11,45 @@
 //  import '../public/assets/css/minimal.css';
   import store from './vuex/store';
   export default {
-    name: 'app',
-    store,
+//    store,
     data () {
       return {
         msg: 'Welcome to Your Vue.js App'
       }
+    },
+    computed:{
+      is_login:()=>{
+        return store.state.is_login;
+      }
+    },
+    watch:{
+//      is_login:()=>{
+//        if(store.state.is_login){
+//          this.$router.push('/');
+//        }
+//      }
     },
     components:{
 
     },
     updated(){
 
+    },
+    methods:{
+      current_user:()=>{
+
+      }
+    },
+    created:function(){
+      var self = this;
+      $.get("/admin/current_user",function (user) {
+        self.$store.state.current_user = user
+      })
+
     }
   }
+
+
+
 
 </script>

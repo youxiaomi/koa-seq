@@ -31,8 +31,14 @@ global.userController=(function () {
     },
     async admin(ctx, next){
       var user =  await User.findAll()
-      ctx.body=user
-    }
+      ctx.body=user;
+    },
+    async current_user(ctx, next){
+
+      var user = await User.findById(ctx.session.user_id);
+      user['password'] = null;
+      ctx.body = user;
+    },
 
   }
 })()

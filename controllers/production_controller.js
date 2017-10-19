@@ -5,18 +5,7 @@ const os = require('os');
 
 global.productionController=(function () {
 
-  function is_login(ctx) {
-    ctx.body = {}
-    if(!ctx.session.user_id){
-      ctx.body.status='false'
-      console.log('未登录')
-      return false
-    }else{
-      console.log("已经登录")
-      return true;
-    }
-  }
-  return {
+  const CONTROLLERS={
     async create(ctx, next){
       var info = JSON.parse(ctx.request.body.productInfo);
       info.activeUser = ctx.session.user_id;
@@ -42,27 +31,75 @@ global.productionController=(function () {
       ctx.body=p
       // console.log(p)
     },
+    async import_records(ctx, next){
+      var records =  await ImportRecord.findAll();
+
+      for(let i=0;i<records.length;i++){
+        let activeUser = await User.findById(records[i].activeUser);
+        records[i].activeUser = activeUser.name
+      }
+      ctx.body = records;
+    },
     async create_img(ctx, next){
       if ('POST' != ctx.method) return await next();
-
-      const file = ctx.request.body.files.myfile;
+      const barcode=ctx.request.query.barcode
+      const file = ctx.request.body.files.file;
       const reader = fs.createReadStream(file.path);
-      var url = path.join(__dirname,"../public/upload/productions");
 
-      if(!fs.existsSync(url)){
-        fs.mkdirSync(url)
-      }
-      const stream = fs.createWriteStream(path.join(url, file.name ));
+      const dir = ROOT_DIR_PUBLIC+'/upload/productions';
+      const production_dir = path.join(dir, barcode)
+
+      handle_dir(dir, production_dir);
+
+      const file_name = Math.random().toString()+ file.name;
+
+      const production_dir_file = path.join(production_dir, file_name);
+      const stream = fs.createWriteStream(production_dir_file);
       reader.pipe(stream);
 
+      var old_products = await Production.findAll({where:{barcode: barcode}});
+
+      old_products.map(function (p) {
+        old_url = path.join(ROOT_DIR_PUBLIC, p.imgUrl)
+        if(fs.existsSync(old_url)){
+          console.log(old_url);
+          fs.unlinkSync(old_url);
+        }
+      })
+      await Production.update(
+        {imgUrl: "/"+path.relative(ROOT_DIR_PUBLIC, production_dir_file)} ,{where:{barcode: barcode}})
       console.log('uploading %s -> %s', file.name, stream.path);
 
-      // ctx.redirect('/');
+      console.log("before");
+      ctx.status = 200;
 
     }
+  };
 
 
 
+  function handle_dir(url, production_dir) {
+    if(!fs.existsSync(url)){
+      fs.mkdirSync(url)
+    }
+    if(!fs.existsSync(production_dir)){
+      fs.mkdirSync(production_dir)
+    }
   }
+
+
+  function is_login(ctx) {
+    ctx.body = {}
+    if(!ctx.session.user_id){
+      ctx.body.status='false'
+      console.log('未登录')
+      return false
+    }else{
+      console.log("已经登录")
+      return true;
+    }
+  };
+  return CONTROLLERS
+
 })()
 

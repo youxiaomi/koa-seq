@@ -32,6 +32,7 @@
 </template>
 
 <script>
+
   export default {
     data () {
       return {
@@ -44,13 +45,20 @@
         return this.$store
       }
     },
-    methods:{
-      submit:function(){
-        $.get('/login?account='+this.account+'&password='+this.password,function (data ){
+    methods: {
+      submit() {
+        var self = this
+        $.get('/login?account=' + this.account + '&password=' + this.password, function (data) {
+          if (data.status == "true") {
+            self.$store.state.is_login = true
+            self.$router.push('/')
+          }
           console.log(data)
         })
-        }
-
+      }
+    },
+    created:function () {
+      var self =  this
     }
   }
 </script>

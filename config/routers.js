@@ -23,7 +23,14 @@ module.exports=function (app ,upload) {
   );
 
   admin_router.use(async (ctx,next) =>{
-    console.log("判断是否登录" + "")
+    // if(ctx.session.user_id){
+    //   await next()
+    // }
+    // else{
+    //   ctx.body.status='false'
+    //   return
+    // }
+
     await next()
   });
 
@@ -36,14 +43,14 @@ module.exports=function (app ,upload) {
 
 
   admin_router
-    .get('/login',userController.admin)
+    .get('/login',userController.login)
+    .get('/current_user',userController.current_user)
     .get('/production',productionController.index)
+    .get('/import_records',productionController.import_records)
     .post('/production/create_img', productionController.create_img );
 
 
   // }));
-
-
 
   app.use(router.routes())
     .use(admin_router.routes())
