@@ -39,6 +39,10 @@ global.userController=(function () {
       user['password'] = null;
       ctx.body = user;
     },
+    async logout(ctx, next){
+      ctx.session.user_id = null;
+      ctx.body.status = "false"
+    },
 
   }
 })()

@@ -36,6 +36,11 @@ router.beforeEach((to, from, next) => {
     store.commit('is_login')
   }
   if(store.state.is_login ){
+    if(!store.state.current_user.account){
+      $.get("/admin/current_user",function (user) {
+        store.state.current_user = user
+      })
+    }
 
     if(to.path ==login_path){
       next('/')

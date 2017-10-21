@@ -14,7 +14,7 @@
 						<li class="divider"></li>
 						<li><a href="#"><i class="icon-check"></i> My Tasks</a></li>
 						<li class="divider"></li>
-						<li><a href="login.html"><i class="icon-key"></i> Log Out</a></li>
+						<li :click="logout">Log Out</li>
 					</ul>
 				</li>
 				<li class="dropdown" id="menu-messages"><a href="#" data-toggle="dropdown" data-target="#menu-messages"
@@ -31,7 +31,7 @@
 					</ul>
 				</li>
 				<li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">Settings</span></a></li>
-				<li class=""><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a>
+				<li class="" ><a title="" v-on:click="logout"><i class="icon icon-share-alt"></i> <span class="text">Logout</span></a>
 				</li>
 			</ul>
 		</div>
@@ -85,7 +85,15 @@
 
     },
 	  methods:{
-
+      logout:function () {
+	      $.ajax({
+		      url:'/admin/logout',
+		      type:"delete",
+		      success:function () {
+			      window.location.reload()
+          }
+	      })
+      }
 	  },
     created: function () {
 

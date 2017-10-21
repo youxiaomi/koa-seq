@@ -23,15 +23,17 @@ module.exports=function (app ,upload) {
   );
 
   admin_router.use(async (ctx,next) =>{
-    // if(ctx.session.user_id){
-    //   await next()
-    // }
-    // else{
-    //   ctx.body.status='false'
-    //   return
-    // }
-
-    await next()
+    ctx.body={}
+    if(ctx.session.user_id){
+      await next()
+    } else{
+      if(ctx.url == "/admin/login" || ctx.url == "/admin"){
+        await next()
+      }else{
+        ctx.body.status='false'
+        return
+      }
+    }
   });
 
   router
@@ -40,8 +42,8 @@ module.exports=function (app ,upload) {
     .get('/production', productionController.show )
     .get('/production/index', productionController.index )
     .get('/sell', sellController.create )
-    .get('/', rootController.index )
-    .get('/admin', rootController.admin )
+    .get('/', rootController.index );
+
 
 
   admin_router
@@ -49,10 +51,13 @@ module.exports=function (app ,upload) {
     .get('/current_user',userController.current_user)
     .get('/production',productionController.index)
     .get('/import_records',productionController.import_records)
-    .post('/production/create_img', productionController.create_img );
-
+    .post('/production/create_img', productionController.create_img )
+    .get('/', rootController.admin )
+    .delete('/logout', userController.logout );
 
   // }));
+
+
 
   app.use(router.routes())
     .use(admin_router.routes())

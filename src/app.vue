@@ -41,10 +41,7 @@
       }
     },
     created:function(){
-      var self = this;
-      $.get("/admin/current_user",function (user) {
-        self.$store.state.current_user = user
-      })
+
 
     }
   }

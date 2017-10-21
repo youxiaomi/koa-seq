@@ -42,11 +42,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "sup": "NODE_ENV=dev supervisor -i node_modules -e png app.js",
-    "sups": "NODE_ENV=dev supervisor -i node_modules  app.js",
-    "pm2": "pm2 start app.js --watch",
-    "webpack": "webpack --config config/webpack.config.js",
-    "web_proudction": "webpack --config config/webpack.config.production.js",
+    "sup": "NODE_ENV=dev supervisor -i node_modules app.js",
+    "build": "webpack --config config/webpack.config.production.js",
     "web_watch": "webpack --watch --config config/webpack.config.js"
   },
   "author": "",
