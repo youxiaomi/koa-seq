@@ -49,6 +49,9 @@
 				<li :class="[current_view == 'import-record' ? 'active':'']">
 					<router-link :to="'/import-record'"><span>入库记录</span></router-link>
 				</li>
+				<li :class="[current_view == 'sell-record' ? 'active':'']">
+					<router-link :to="'/sell-record'"><span>销售记录</span></router-link>
+				</li>
 			</ul>
 		</div>
 
@@ -56,7 +59,6 @@
 
 			<component v-bind:is="current_view"></component>
 			<!--<import-record></import-record>-->
-			<!--<product-list></product-list>-->
 		</div>
 
 
@@ -66,6 +68,8 @@
 <script>
 	import productList from './compents/product_list.vue';
 	import importRecord from './compents/import_record.vue';
+	import sellRecord from './compents/sell_record.vue';
+	import sellShow from './compents/sell_show.vue';
 
   export default{
     data() {
@@ -78,8 +82,10 @@
         return this.$store
       },
       current_view: function () {
-
         var component = this.$route.params.component;
+        if(!component){
+          component = this.$route.history.path
+        }
         return component
       }
 
@@ -100,7 +106,9 @@
     },
 	  components:{
       productList,
-      importRecord
+      importRecord,
+      sellRecord,
+      sellShow,
 	  },
 	  updated: function () {
 

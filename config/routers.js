@@ -53,6 +53,12 @@ module.exports=function (app ,upload) {
     .get('/import_records',productionController.import_records)
     .post('/production/create_img', productionController.create_img )
     .get('/', rootController.admin )
+
+    .get('/sell',sellController.index)
+    .get('/sell/:id', sellController.show)
+
+
+
     .delete('/logout', userController.logout );
 
   // }));

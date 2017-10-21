@@ -8,6 +8,8 @@ var staticCache = require('koa-static-cache')
 
 const app = new Koa();
 
+global._ = require('underscore');
+
 global.ROOT_DIR = __dirname;
 global.ROOT_DIR_PUBLIC = __dirname+'/public';
 

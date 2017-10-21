@@ -12,6 +12,10 @@ var router = new Router({
     },
     {
       path: '/:component',
+      component: () => import('./views/admin/index.vue'),
+    },
+    {
+      path: '/sell-show',
       component: () => import('./views/admin/index.vue')
     },
     {
@@ -28,6 +32,7 @@ var router = new Router({
     },
   ]
 });
+
 
 router.beforeEach((to, from, next) => {
 

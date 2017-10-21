@@ -2,7 +2,7 @@
 	<div class="container-fluid">
 		<div class="widget-box">
 			<div class="widget-title"><span class="icon"><i class="icon-th"></i></span>
-				<h5>Data table</h5>
+				<h5>产品详情</h5>
 			</div>
 			<div class="widget-content nopadding">
 				<div id="DataTables_Table_0_wrapper" class="dataTables_wrapper" role="grid">
