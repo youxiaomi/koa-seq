@@ -8,7 +8,7 @@
 </template>
 
 <script>
-//  import '../public/assets/css/minimal.css';
+//  import '../public/statics/css/minimal.css';
   import store from './vuex/store';
   export default {
 //    store,

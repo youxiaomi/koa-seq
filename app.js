@@ -22,6 +22,9 @@ const CONFIG = {
   signed: true, /** (boolean) signed or not (default true) */
   rolling: true, /** (boolean) Force a session identifier cookie to be set on every response. The expiration is reset to the original maxAge, resetting the expiration countdown. default is false **/
 };
+const views = require('koa-views');
+app.use(views(path.join(__dirname, 'public/static'), { extension: 'html' }));
+
 
 app.use(session(CONFIG, app));
 app.use(body({ multipart: true }));
@@ -38,16 +41,17 @@ if(process.env.NODE_ENV == "dev"){
 }else{
   maxAge= 365 * 24 * 60 * 60
 }
-app.use(staticCache(path.join(__dirname, 'public'), {
-  maxAge: maxAge
-}))
-
-app.use(staticCache(path.join(__dirname, 'public/static'), {
-  maxAge: maxAge
-}))
-app.use(staticCache(path.join(__dirname, 'public/assets'), {
-  maxAge: maxAge
-}))
+// app.use(staticCache(path.join(__dirname, 'public'), {
+//   maxAge: maxAge
+// }))
+//
+// app.use(staticCache(path.join(__dirname, 'public/static'), {
+//   maxAge: maxAge
+// }))
+//
+// app.use(staticCache(path.join(__dirname, 'public/assets'), {
+//   maxAge: maxAge
+// }))
 
 
 

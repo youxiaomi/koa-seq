@@ -15,16 +15,16 @@ var router = new Router({
       component: () => import('./views/admin/index.vue')
     },
     {
-      path: '/bar',
-      component: () => import('./views/test.vue')
-    },
-    {
       path: '/admin/login',
       component: () => import('./views/admin/login.vue')
     },
     {
       path: '/admin/production',
       component: () => import('./views/admin/production/index.vue')
+    },
+    {
+      path: '/bar',
+      component: () => import('./views/test.vue')
     },
   ]
 });

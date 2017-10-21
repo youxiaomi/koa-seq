@@ -14,6 +14,7 @@
     "koa-router": "^7.2.1",
     "koa-session": "^5.5.0",
     "koa-static-cache": "^5.1.1",
+    "koa-views": "^6.1.1",
     "mysql2": "^1.4.2",
     "sequelize": "^4.8.4",
     "sequelize-cli": "^3.0.0",

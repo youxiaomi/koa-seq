@@ -40,6 +40,8 @@ module.exports=function (app ,upload) {
     .get('/production', productionController.show )
     .get('/production/index', productionController.index )
     .get('/sell', sellController.create )
+    .get('/', rootController.index )
+    .get('/admin', rootController.admin )
 
 
   admin_router

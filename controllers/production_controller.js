@@ -60,6 +60,7 @@ global.productionController=(function () {
       var old_products = await Production.findAll({where:{barcode: barcode}});
 
       old_products.map(function (p) {
+        if(!p.imgUrl)return
         old_url = path.join(ROOT_DIR_PUBLIC, p.imgUrl)
         if(fs.existsSync(old_url)){
           console.log(old_url);
@@ -69,8 +70,6 @@ global.productionController=(function () {
       await Production.update(
         {imgUrl: "/"+path.relative(ROOT_DIR_PUBLIC, production_dir_file)} ,{where:{barcode: barcode}})
       console.log('uploading %s -> %s', file.name, stream.path);
-
-      console.log("before");
       ctx.status = 200;
 
     }
