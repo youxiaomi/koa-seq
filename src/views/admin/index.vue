@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div id="header">
-			<h1>狗蛋超市</h1>
+			<h1>花间超市</h1>
 		</div>
 
 		<div id="user-nav" class="navbar navbar-inverse">
@@ -119,3 +119,11 @@
     }
   }
 </script>
+<style scoped lang="scss">
+	#header h1 {
+		line-height: 20px;
+		color: #fff;
+		background: none;
+		font-size: 23px;
+	}
+</style>

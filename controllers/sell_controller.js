@@ -28,14 +28,15 @@ global.sellController=(function () {
       ctx.body = true
     },
     async index(ctx, next){
-      var sells = await SellRecord.findAll();
+      var page = ctx.query.page;
+      let limit = 15,offset = (ctx.query.page - 1) * limit;
+      var sells = await SellRecord.findAll({offset: offset,limit: limit});
 
       for(let i=0;i<sells.length;i++){
         let activeUser = await User.findById(sells[i].activeUser);
         sells[i].activeUser = activeUser.name
       }
-
-      ctx.body = sells;
+      ctx.body = _.extend({datas: sells},helper.pages_fn(Math.ceil(await SellRecord.count() / limit), page));
     },
     async show(ctx, next){
       var sell = await SellRecordDetail.findAll({where:{sellRecordId: ctx.params.id }})

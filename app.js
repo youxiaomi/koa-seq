@@ -9,7 +9,7 @@ var staticCache = require('koa-static-cache')
 const app = new Koa();
 
 global._ = require('underscore');
-
+require("./bin/helper");
 global.ROOT_DIR = __dirname;
 global.ROOT_DIR_PUBLIC = __dirname+'/public';
 
@@ -37,23 +37,15 @@ require('./bin/handle_model.js');
 
 
 
-var maxAge;
-if(process.env.NODE_ENV == "dev"){
-  maxAge=0
-}else{
-  maxAge= 365 * 24 * 60 * 60
-}
+// if(process.env.NODE_ENV == "dev"){
+//   maxAge=0
+// }else{
+//   maxAge= 365 * 24 * 60 * 60
+// }
 // app.use(staticCache(path.join(__dirname, 'public'), {
 //   maxAge: maxAge
 // }))
-//
-// app.use(staticCache(path.join(__dirname, 'public/static'), {
-//   maxAge: maxAge
-// }))
-//
-// app.use(staticCache(path.join(__dirname, 'public/assets'), {
-//   maxAge: maxAge
-// }))
+
 
 
 

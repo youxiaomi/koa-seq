@@ -22,8 +22,18 @@ global.productionController=(function () {
       ctx.body = p.barcode || p.length>0 ? {productStatus:true} : {productStatus:false};
     },
     async index(ctx, next){
-      var p = await Production.findAll();
-      ctx.body=p;
+      var page = ctx.query.page
+      if(page){
+        let limit = 15,offset = (ctx.query.page - 1) * limit
+        ctx.body={};
+        var productions = await Production.findAll({offset: offset,limit: limit});
+        let count  = Math.ceil(await Production.count() / limit);
+        ctx.body = _.extend({datas: productions},helper.pages_fn(count, page));
+      }else{
+        var p = await Production.findAll();
+        ctx.body=p;
+      }
+
     },
     async show(ctx, next){
 
@@ -32,13 +42,17 @@ global.productionController=(function () {
       // console.log(p)
     },
     async import_records(ctx, next){
-      var records =  await ImportRecord.findAll();
+      var page = ctx.query.page;
+      let limit = 15,offset = (ctx.query.page - 1) * limit;
+      var records = await ImportRecord.findAll({offset: offset,limit: limit});
+
 
       for(let i=0;i<records.length;i++){
         let activeUser = await User.findById(records[i].activeUser);
         records[i].activeUser = activeUser.name
       }
-      ctx.body = records;
+
+      ctx.body = _.extend({datas: records},helper.pages_fn(Math.ceil(await ImportRecord.count() / limit), page));
     },
     async create_img(ctx, next){
       if ('POST' != ctx.method) return await next();
