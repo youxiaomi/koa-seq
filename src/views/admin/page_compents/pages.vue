@@ -45,7 +45,7 @@
     },
     methods:{
 	    get_data: function (page) {
-        page = page || 1
+        page = page || this.page
         var self = this;
         $.get( self.url+'?page='+page, function (data) {
           self.pages = data.pages;

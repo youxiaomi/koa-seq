@@ -56,8 +56,9 @@
 		</div>
 
 		<div id="content">
-
-			<component v-bind:is="current_view"></component>
+			<keep-alive>
+				<component v-bind:is="current_view"></component>
+			</keep-alive>
 			<!--<import-record></import-record>-->
 		</div>
 

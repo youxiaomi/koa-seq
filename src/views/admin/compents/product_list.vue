@@ -65,7 +65,7 @@
 						</tbody>
 					</table>
 
-					<pages :url="get_data_url" v-on:receive_data="get_productions" ></pages>
+					<pages ref="pages" :url="get_data_url" v-on:receive_data="get_productions" ></pages>
 				</div>
 			</div>
 		</div>
@@ -119,7 +119,7 @@
           url:"/admin/production/create_img?barcode="+p.barcode,
           fileName:"file",
           onSuccess:function (files,data,xhr,pd) {
-            self.get_productions()
+            self.$refs.pages.get_data()
           }
         });
       })
