@@ -30,7 +30,7 @@ global.sellController=(function () {
     async index(ctx, next){
       var page = ctx.query.page;
       let limit = 15,offset = (ctx.query.page - 1) * limit;
-      var sells = await SellRecord.findAll({offset: offset,limit: limit});
+      var sells = await SellRecord.findAll({offset: offset,limit: limit, order: [['id', 'DESC']]});
 
       for(let i=0;i<sells.length;i++){
         let activeUser = await User.findById(sells[i].activeUser);

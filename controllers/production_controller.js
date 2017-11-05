@@ -26,7 +26,7 @@ global.productionController=(function () {
       if(page){
         let limit = 15,offset = (ctx.query.page - 1) * limit
         ctx.body={};
-        var productions = await Production.findAll({offset: offset,limit: limit});
+        var productions = await Production.findAll({offset: offset,limit: limit, order: [['id', 'DESC']]});
         let count  = Math.ceil(await Production.count() / limit);
         ctx.body = _.extend({datas: productions},helper.pages_fn(count, page));
       }else{
@@ -39,12 +39,11 @@ global.productionController=(function () {
 
       var p = await Production.findOne({where:{barcode: ctx.request.query.barcode}})
       ctx.body=p
-      // console.log(p)
     },
     async import_records(ctx, next){
       var page = ctx.query.page;
       let limit = 15,offset = (ctx.query.page - 1) * limit;
-      var records = await ImportRecord.findAll({offset: offset,limit: limit});
+      var records = await ImportRecord.findAll({offset: offset,limit: limit, order: [['id', 'DESC']]});
 
 
       for(let i=0;i<records.length;i++){
@@ -54,6 +53,7 @@ global.productionController=(function () {
 
       ctx.body = _.extend({datas: records},helper.pages_fn(Math.ceil(await ImportRecord.count() / limit), page));
     },
+
     async create_img(ctx, next){
       if ('POST' != ctx.method) return await next();
       const barcode=ctx.request.query.barcode
@@ -86,6 +86,21 @@ global.productionController=(function () {
       console.log('uploading %s -> %s', file.name, stream.path);
       ctx.status = 200;
 
+    },
+    async id_show(ctx, next){
+
+      var p = await Production.findOne({where:{id: ctx.params.id}})
+      ctx.body.production = p
+    },
+    async update(ctx, next){
+      var p = await Production.update(ctx.request.body,{where:{id: ctx.params.id}})
+      ctx.status = 200
+    },
+    async update_stock(ctx, next){
+      var p = await Production.findById(ctx.params.id);
+      let addStockNum = parseInt(p.addStockNum) + parseInt(ctx.request.body.addStock);
+      var p = await Production.update({addStockNum: addStockNum},{where:{id: ctx.params.id}});
+      ctx.status = 200
     }
   };
 

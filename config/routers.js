@@ -56,6 +56,9 @@ module.exports=function (app ,upload) {
 
     .get('/sell',sellController.index)
     .get('/sell/:id', sellController.show)
+    .get('/production/:id', productionController.id_show)
+    .put('/production/:id', productionController.update)
+    .put('/production/addstock/:id', productionController.update_stock)
 
 
 

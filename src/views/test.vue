@@ -1,32 +1,41 @@
 <template>
-<div class="example_warp">
-    123
-   <form action="/admin/production/create_img" method="post" enctype="multipart/form-data">
-
-       <input type="file"/>
-       <button type="submit">提交233</button>
-   </form>
-</div>
+  <div>
+    <layout></layout>
+    <div id="content">
+    </div>
+  </div>
 
 </template>
-
 <script>
+//  import layout from "../compents/layout.vue";
   export default {
-    data () {
+    data() {
       return {
-        msg: 'router'
+
       }
     },
-    computed:{
-      store:function () {
+    computed: {
+      store: function () {
         return this.$store
-      }
+      },
+
+    },
+    methods:{
+
+    },
+    created: function () {
+
+    },
+    components:{
+      layout
+    },
+    updated: function () {
+
     }
   }
 </script>
 
-<style lang="scss" scoped>
-    .example_warp {
 
-    }
+<style lang="scss" scoped>
+
 </style>

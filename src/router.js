@@ -8,24 +8,49 @@ var router = new Router({
   routes: [
     {
       path: '/',
-      redirect: '/product-list'
+      redirect: 'production'
     },
     {
-      path: '/:component',
-      component: () => import('./views/admin/index.vue'),
+      path: '/production',
+      component: () => import('./views/admin/production/product_list.vue'),
     },
     {
-      path: '/sell-show',
-      component: () => import('./views/admin/index.vue')
+      path: '/production/:id',
+      component: () => import('./views/admin/production/edit.vue')
+    },
+    {
+      path: '/production/addstock/:id',
+      component: () => import('./views/admin/production/add_stock.vue')
+    },
+    {
+      path: '/import_record',
+      component: () => import('./views/admin/record/import_record.vue'),
+    },
+    {
+      path: '/sell_record',
+      component: () => import('./views/admin/record/sell_record.vue'),
+    },
+    {
+      path: '/sell_show/:id',
+      component: () => import('./views/admin/record/sell_show.vue')
     },
     {
       path: '/admin/login',
       component: () => import('./views/admin/login.vue')
     },
+
+
+
+
+
+
+
+
     {
       path: '/admin/production',
       component: () => import('./views/admin/production/index.vue')
     },
+
     {
       path: '/bar',
       component: () => import('./views/test.vue')
