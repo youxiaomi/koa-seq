@@ -53,15 +53,15 @@
                     </div>
                   </div>
                   <div class="control-group">
-                    <label class="control-label">剩余库存</label>
-                    <div class="controls">
-                      <input type="text"  v-model="production.addStockNum">
-                    </div>
-                  </div>
-                  <div class="control-group">
                     <label class="control-label">厂家</label>
                     <div class="controls">
                       <input type="text"  v-model="production.factory">
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label">剩余库存</label>
+                    <div class="controls">
+                      <span>{{ production.addStockNum }}</span>
                     </div>
                   </div>
                   <div class="form-actions" style="text-align: right">

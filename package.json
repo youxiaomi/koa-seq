@@ -16,7 +16,7 @@
     "koa-static-cache": "^5.1.1",
     "koa-views": "^6.1.1",
     "mysql2": "^1.4.2",
-    "sequelize": "^4.8.4",
+    "sequelize": "^4.13.7",
     "sequelize-cli": "^3.0.0",
     "uglifyjs-webpack-plugin": "^0.4.6",
     "underscore": "^1.8.3",

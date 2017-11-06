@@ -22,7 +22,20 @@ global.productionController=(function () {
       ctx.body = p.barcode || p.length>0 ? {productStatus:true} : {productStatus:false};
     },
     async index(ctx, next){
-      var page = ctx.query.page
+
+      var page = ctx.query.page,search_val = ctx.query.search_val
+
+      if(search_val){
+        var productions
+        productions = await Production.findAll({where:{barcode: {[Op.like]: "%"+search_val+"%", }}}
+        ,{order: [['id', 'DESC']]});
+        if(productions.length ==0 ){
+          productions = await Production.findAll({where:{productName: {[Op.like]: "%"+search_val+"%", }}})
+        }
+        ctx.body.datas = productions
+        return
+      }
+
       if(page){
         let limit = 15,offset = (ctx.query.page - 1) * limit
         ctx.body={};
@@ -41,14 +54,27 @@ global.productionController=(function () {
       ctx.body=p
     },
     async import_records(ctx, next){
-      var page = ctx.query.page;
+      var page = ctx.query.page,search_val = ctx.query.search_val
+
+      if(search_val){
+        var productions
+        productions = await ImportRecord.findAll({where:{barcode: {[Op.like]: "%"+search_val+"%", }}}
+          ,{order: [['id', 'DESC']]});
+        if(productions.length ==0 ){
+          productions = await ImportRecord.findAll({where:{productName: {[Op.like]: "%"+search_val+"%", }}})
+        }
+        ctx.body.datas = productions
+        return
+      }
+
+
       let limit = 15,offset = (ctx.query.page - 1) * limit;
       var records = await ImportRecord.findAll({offset: offset,limit: limit, order: [['id', 'DESC']]});
 
 
       for(let i=0;i<records.length;i++){
         let activeUser = await User.findById(records[i].activeUser);
-        records[i].activeUser = activeUser.name
+        records[i].activeUser = activeUser ? activeUser.name: ""
       }
 
       ctx.body = _.extend({datas: records},helper.pages_fn(Math.ceil(await ImportRecord.count() / limit), page));
@@ -93,11 +119,25 @@ global.productionController=(function () {
       ctx.body.production = p
     },
     async update(ctx, next){
+      delete ctx.request.body['id'];
+      delete ctx.request.body['addStockNum'];
+      delete ctx.request.body['createdAt'];
+      delete ctx.request.body['updatedAt'];
+      
+      await ImportRecord.create(_.extend({},ctx.request.body,
+        {activeUser: ctx.session.user_id,addStockNum:0, productName: ctx.request.body.productName+'(修改商品信息)'}));
       var p = await Production.update(ctx.request.body,{where:{id: ctx.params.id}})
       ctx.status = 200
     },
     async update_stock(ctx, next){
       var p = await Production.findById(ctx.params.id);
+      p = p.dataValues
+      delete p['id']
+      delete p['createdAt']
+      delete p['updatedAt']
+
+      var record = await ImportRecord.create(_.extend({},p,{addStockNum: ctx.request.body.addStock, activeUser: ctx.session.user_id}));
+
       let addStockNum = parseInt(p.addStockNum) + parseInt(ctx.request.body.addStock);
       var p = await Production.update({addStockNum: addStockNum},{where:{id: ctx.params.id}});
       ctx.status = 200

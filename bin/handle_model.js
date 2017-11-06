@@ -2,6 +2,7 @@ var fs = require('fs')
 
 var Sequelize = require('sequelize');
 
+global.Op = Sequelize.Op;
 const sequelize = new Sequelize('koa_sq', 'root', '123123', {
   host: 'localhost',
   dialect: 'mysql',

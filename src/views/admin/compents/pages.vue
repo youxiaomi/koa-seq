@@ -1,7 +1,7 @@
 <template>
 	<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix">
 		<div class="dataTables_filter" id="DataTables_Table_0_filter">
-			<label>Search: <input type="text"	aria-controls="DataTables_Table_0"></label>
+			<label>Search: <input type="text"	v-model="search_data" v-on:keyup="search"></label>
 		</div>
 		<div class="dataTables_paginate fg-buttonset ui-buttonset fg-buttonset-multi ui-buttonset-multi paging_full_numbers"
 		     id="DataTables_Table_0_paginate">
@@ -35,6 +35,7 @@
         pages: _.range(1, 6),
         page: 1,
         count: 1,
+	      search_data: '',
       }
     },
     computed: {
@@ -51,6 +52,14 @@
           self.pages = data.pages;
           self.page = page;
           self.count = data.count;
+          self.$emit('receive_data',data.datas)
+        })
+      },
+	    search:function () {
+        var self = this;
+        this.search_data = $.trim(this.search_data)
+        if(this.search_data == '')return
+        $.get( self.url+'?search_val='+this.search_data, function (data) {
           self.$emit('receive_data',data.datas)
         })
       }
