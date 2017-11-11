@@ -36,6 +36,17 @@ module.exports=function (app ,upload) {
     }
   });
 
+
+  router.use(async (ctx,next)=>{
+    if(ctx.session.user_id){
+      await next()
+    } else{
+      ctx.body={status:'false'}
+      return
+    }
+  });
+
+
   router
     .get('/login', userController.login )
     .post('/new_production', productionController.create )
