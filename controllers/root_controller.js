@@ -7,6 +7,7 @@ global.rootController=(function () {
       await ctx.render('mobile');
     },
     async admin(ctx, next){
+
       await ctx.render('index');
     },
   }
