@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
-
+var rp = require('request-promise');
+var app_key = '50bb2df2b9fe06f3'
 
 global.productionController=(function () {
 
@@ -49,9 +50,38 @@ global.productionController=(function () {
 
     },
     async show(ctx, next){
+      var api_result = {"status":"0","msg":"ok","result":{"barcode":"6940509101690","name":"烧烤土豆","ename":"","unspsc":"","brand":"","type":"","width":"","height":"","depth":"","origincountry":"中国","originplace":"","assemblycountry":"","barcodetype":"","catena":"","isbasicunit":"","packagetype":"","grossweight":"","netcontent":"","netweight":"","description":"","keyword":"","pic":"","price":"","licensenum":"","healthpermitnum":"","company":"四川眉山升泰食品有限公司","expirationdate":""}}
+      // 这个是要请求条码api接口的
+      var api_url = "http://api.jisuapi.com/barcode2/query?appkey="+app_key+"&barcode="+ctx.request.query.barcode;
 
-      var p = await Production.findOne({where:{barcode: ctx.request.query.barcode}})
-      ctx.body=p
+      var p = await Production.findOne({where:{barcode: ctx.request.query.barcode}});
+      if(p){
+        ctx.body=p
+      }else{
+        // var api_result = await rp({uri: api_url})
+        // api_result = JSON.parse(api_result)
+
+
+        var p_result = api_result.result
+
+        if(api_result.msg != 'ok'){
+          ctx.body = null
+          return
+        }
+
+        p={}
+        p.barcode = ctx.request.query.barcode
+        p.productName = p_result.name
+        p.weight = p_result.netcontent
+        p.salePrice = 0
+        p.costPrice = 0
+        p.taste = ''
+        p.addStockNum = 0
+        p.factory = p_result.company
+        await Production.create(p);
+        ctx.body=p
+      }
+
     },
     async import_records(ctx, next){
       var page = ctx.query.page,search_val = ctx.query.search_val
